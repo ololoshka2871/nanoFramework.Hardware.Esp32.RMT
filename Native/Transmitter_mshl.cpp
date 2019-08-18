@@ -8,7 +8,7 @@
 
 
 #include "nanoFramework_Hardware_Esp32_RMT_Tx.h"
-#include "nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter.h"
+#include "Transmitter.h"
 
 using namespace nanoFramework::Hardware::Esp32::RMT::Tx;
 
@@ -63,12 +63,12 @@ HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32
         signed int param0;
         NANOCLR_CHECK_HRESULT( Interop_Marshal_INT32( stack, 0, param0 ) );
 
-        bool * param1;
-        UINT8 heapblock1[CLR_RT_HEAP_BLOCK_SIZE];
+        uint8_t * param1;
+        uint8_t heapblock1[CLR_RT_HEAP_BLOCK_SIZE];
         NANOCLR_CHECK_HRESULT( Interop_Marshal_bool_ByRef( stack, heapblock1, 1, param1 ) );
 
-        bool * param2;
-        UINT8 heapblock2[CLR_RT_HEAP_BLOCK_SIZE];
+        uint8_t * param2;
+        uint8_t heapblock2[CLR_RT_HEAP_BLOCK_SIZE];
         NANOCLR_CHECK_HRESULT( Interop_Marshal_bool_ByRef( stack, heapblock2, 2, param2 ) );
 
         Transmitter::NativeGetTransmitterIdleLevel( param0, param1, param2, hr );
@@ -186,11 +186,11 @@ HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32
         bool param1;
         NANOCLR_CHECK_HRESULT( Interop_Marshal_bool( stack, 1, param1 ) );
 
-        unsigned short param2;
-        NANOCLR_CHECK_HRESULT( Interop_Marshal_UINT16( stack, 2, param2 ) );
+        unsigned short param2 = stack.ArgN( 2 ).NumericByRef().u2;
+        //NANOCLR_CHECK_HRESULT( Interop_Marshal_UINT16( stack, 2, param2 ) );
 
-        unsigned short param3;
-        NANOCLR_CHECK_HRESULT( Interop_Marshal_UINT16( stack, 3, param3 ) );
+        unsigned short param3 = stack.ArgN( 3 ).NumericByRef().u2;
+        //NANOCLR_CHECK_HRESULT( Interop_Marshal_UINT16( stack, 3, param3 ) );
 
         bool param4;
         NANOCLR_CHECK_HRESULT( Interop_Marshal_bool( stack, 4, param4 ) );

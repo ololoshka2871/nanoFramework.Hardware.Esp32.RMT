@@ -39,7 +39,7 @@ namespace nanoFramework
                         static void NativeDispose( signed int param0, HRESULT &hr );
                         static unsigned char NativeGetClockDiv( signed int param0, HRESULT &hr );
                         static bool NativeGetLoopTxMode( signed int param0, HRESULT &hr );
-                        static void NativeGetTransmitterIdleLevel( signed int param0, bool * param1, bool * param2, HRESULT &hr );
+                        static void NativeGetTransmitterIdleLevel( signed int param0, uint8_t * bool_param1, uint8_t * bool_param2, HRESULT &hr );
                         static signed int NativeInit( signed int param0, HRESULT &hr );
                         static bool NativeIsSource80MHz( signed int param0, HRESULT &hr );
                         static void NativeSetClockDiv( signed int param0, unsigned char param1, HRESULT &hr );

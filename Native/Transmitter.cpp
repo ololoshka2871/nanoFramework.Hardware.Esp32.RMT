@@ -10,7 +10,7 @@
 //
 //-----------------------------------------------------------------------------
 #include "nanoFramework_Hardware_Esp32_RMT_Tx.h"
-#include "nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter.h"
+#include "Transmitter.h"
 
 using namespace nanoFramework::Hardware::Esp32::RMT::Tx;
 
@@ -30,7 +30,7 @@ bool Transmitter::NativeGetLoopTxMode( signed int param0, HRESULT &hr )
     return retVal;
 }
 
-void Transmitter::NativeGetTransmitterIdleLevel( signed int param0, bool * param1, bool * param2, HRESULT &hr )
+void Transmitter::NativeGetTransmitterIdleLevel( signed int param0, uint8_t * bool_param1, uint8_t * bool_param2, HRESULT &hr )
 {
 }
 
