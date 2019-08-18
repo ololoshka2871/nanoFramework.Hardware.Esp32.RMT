@@ -56,25 +56,17 @@ HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32
     NANOCLR_NOCLEANUP();
 }
 
-HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::NativeGetTransmitterIdleLevel___STATIC__VOID__I4__BYREF_BOOLEAN__BYREF_BOOLEAN( CLR_RT_StackFrame& stack )
+HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::NativeGetTransmitIdleLevel___STATIC__BOOLEAN__I4( CLR_RT_StackFrame& stack )
 {
     NANOCLR_HEADER(); hr = S_OK;
     {
         signed int param0;
         NANOCLR_CHECK_HRESULT( Interop_Marshal_INT32( stack, 0, param0 ) );
 
-        bool * param1;
-        UINT8 heapblock1[CLR_RT_HEAP_BLOCK_SIZE];
-        NANOCLR_CHECK_HRESULT( Interop_Marshal_bool_ByRef( stack, heapblock1, 1, param1 ) );
-
-        bool * param2;
-        UINT8 heapblock2[CLR_RT_HEAP_BLOCK_SIZE];
-        NANOCLR_CHECK_HRESULT( Interop_Marshal_bool_ByRef( stack, heapblock2, 2, param2 ) );
-
-        Transmitter::NativeGetTransmitterIdleLevel( param0, param1, param2, hr );
+        bool retVal = Transmitter::NativeGetTransmitIdleLevel( param0, hr );
         NANOCLR_CHECK_HRESULT( hr );
-        NANOCLR_CHECK_HRESULT( Interop_Marshal_StoreRef( stack, heapblock1, 1 ) );
-        NANOCLR_CHECK_HRESULT( Interop_Marshal_StoreRef( stack, heapblock2, 2 ) );
+        SetResult_bool( stack, retVal );
+
     }
     NANOCLR_NOCLEANUP();
 }
@@ -105,6 +97,62 @@ HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32
         NANOCLR_CHECK_HRESULT( hr );
         SetResult_bool( stack, retVal );
 
+    }
+    NANOCLR_NOCLEANUP();
+}
+
+HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::NativeIsTransmitIdleEnabled___STATIC__BOOLEAN__I4( CLR_RT_StackFrame& stack )
+{
+    NANOCLR_HEADER(); hr = S_OK;
+    {
+        signed int param0;
+        NANOCLR_CHECK_HRESULT( Interop_Marshal_INT32( stack, 0, param0 ) );
+
+        bool retVal = Transmitter::NativeIsTransmitIdleEnabled( param0, hr );
+        NANOCLR_CHECK_HRESULT( hr );
+        SetResult_bool( stack, retVal );
+
+    }
+    NANOCLR_NOCLEANUP();
+}
+
+HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::NativeSendData___STATIC__VOID__I4__SZARRAY_U1( CLR_RT_StackFrame& stack )
+{
+    NANOCLR_HEADER(); hr = S_OK;
+    {
+        signed int param0;
+        NANOCLR_CHECK_HRESULT( Interop_Marshal_INT32( stack, 0, param0 ) );
+
+        CLR_RT_TypedArray_UINT8 param1;
+        NANOCLR_CHECK_HRESULT( Interop_Marshal_UINT8_ARRAY( stack, 1, param1 ) );
+
+        Transmitter::NativeSendData( param0, param1, hr );
+        NANOCLR_CHECK_HRESULT( hr );
+    }
+    NANOCLR_NOCLEANUP();
+}
+
+HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::NativeSetCarierMode___STATIC__VOID__I4__BOOLEAN__U2__U2__BOOLEAN( CLR_RT_StackFrame& stack )
+{
+    NANOCLR_HEADER(); hr = S_OK;
+    {
+        signed int param0;
+        NANOCLR_CHECK_HRESULT( Interop_Marshal_INT32( stack, 0, param0 ) );
+
+        bool param1;
+        NANOCLR_CHECK_HRESULT( Interop_Marshal_bool( stack, 1, param1 ) );
+
+        unsigned short param2;
+        NANOCLR_CHECK_HRESULT( Interop_Marshal_UINT16( stack, 2, param2 ) );
+
+        unsigned short param3;
+        NANOCLR_CHECK_HRESULT( Interop_Marshal_UINT16( stack, 3, param3 ) );
+
+        bool param4;
+        NANOCLR_CHECK_HRESULT( Interop_Marshal_bool( stack, 4, param4 ) );
+
+        Transmitter::NativeSetCarierMode( param0, param1, param2, param3, param4, hr );
+        NANOCLR_CHECK_HRESULT( hr );
     }
     NANOCLR_NOCLEANUP();
 }
@@ -157,7 +205,7 @@ HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32
     NANOCLR_NOCLEANUP();
 }
 
-HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::NativeSetTransmitterIdleLevel___STATIC__VOID__I4__BOOLEAN__BOOLEAN( CLR_RT_StackFrame& stack )
+HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::NativeSetTransmitIdleEnabled___STATIC__VOID__I4__BOOLEAN( CLR_RT_StackFrame& stack )
 {
     NANOCLR_HEADER(); hr = S_OK;
     {
@@ -167,16 +215,13 @@ HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32
         bool param1;
         NANOCLR_CHECK_HRESULT( Interop_Marshal_bool( stack, 1, param1 ) );
 
-        bool param2;
-        NANOCLR_CHECK_HRESULT( Interop_Marshal_bool( stack, 2, param2 ) );
-
-        Transmitter::NativeSetTransmitterIdleLevel( param0, param1, param2, hr );
+        Transmitter::NativeSetTransmitIdleEnabled( param0, param1, hr );
         NANOCLR_CHECK_HRESULT( hr );
     }
     NANOCLR_NOCLEANUP();
 }
 
-HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::NativeSetCarioerMode___STATIC__VOID__I4__BOOLEAN__U2__U2__BOOLEAN( CLR_RT_StackFrame& stack )
+HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::NativeSetTransmitIdleLevel___STATIC__VOID__I4__BOOLEAN( CLR_RT_StackFrame& stack )
 {
     NANOCLR_HEADER(); hr = S_OK;
     {
@@ -186,32 +231,7 @@ HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32
         bool param1;
         NANOCLR_CHECK_HRESULT( Interop_Marshal_bool( stack, 1, param1 ) );
 
-        unsigned short param2;
-        NANOCLR_CHECK_HRESULT( Interop_Marshal_UINT16( stack, 2, param2 ) );
-
-        unsigned short param3;
-        NANOCLR_CHECK_HRESULT( Interop_Marshal_UINT16( stack, 3, param3 ) );
-
-        bool param4;
-        NANOCLR_CHECK_HRESULT( Interop_Marshal_bool( stack, 4, param4 ) );
-
-        Transmitter::NativeSetCarioerMode( param0, param1, param2, param3, param4, hr );
-        NANOCLR_CHECK_HRESULT( hr );
-    }
-    NANOCLR_NOCLEANUP();
-}
-
-HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::NativeSendData___STATIC__VOID__I4__SZARRAY_U1( CLR_RT_StackFrame& stack )
-{
-    NANOCLR_HEADER(); hr = S_OK;
-    {
-        signed int param0;
-        NANOCLR_CHECK_HRESULT( Interop_Marshal_INT32( stack, 0, param0 ) );
-
-        CLR_RT_TypedArray_UINT8 param1;
-        NANOCLR_CHECK_HRESULT( Interop_Marshal_UINT8_ARRAY( stack, 1, param1 ) );
-
-        Transmitter::NativeSendData( param0, param1, hr );
+        Transmitter::NativeSetTransmitIdleLevel( param0, param1, hr );
         NANOCLR_CHECK_HRESULT( hr );
     }
     NANOCLR_NOCLEANUP();

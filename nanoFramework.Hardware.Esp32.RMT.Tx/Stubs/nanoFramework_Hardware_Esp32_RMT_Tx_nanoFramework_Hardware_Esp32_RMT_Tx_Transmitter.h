@@ -39,15 +39,17 @@ namespace nanoFramework
                         static void NativeDispose( signed int param0, HRESULT &hr );
                         static unsigned char NativeGetClockDiv( signed int param0, HRESULT &hr );
                         static bool NativeGetLoopTxMode( signed int param0, HRESULT &hr );
-                        static void NativeGetTransmitterIdleLevel( signed int param0, bool * param1, bool * param2, HRESULT &hr );
+                        static bool NativeGetTransmitIdleLevel( signed int param0, HRESULT &hr );
                         static signed int NativeInit( signed int param0, HRESULT &hr );
                         static bool NativeIsSource80MHz( signed int param0, HRESULT &hr );
+                        static bool NativeIsTransmitIdleEnabled( signed int param0, HRESULT &hr );
+                        static void NativeSendData( signed int param0, CLR_RT_TypedArray_UINT8 param1, HRESULT &hr );
+                        static void NativeSetCarierMode( signed int param0, bool param1, unsigned short param2, unsigned short param3, bool param4, HRESULT &hr );
                         static void NativeSetClockDiv( signed int param0, unsigned char param1, HRESULT &hr );
                         static void NativeSetLoopTxMode( signed int param0, bool param1, HRESULT &hr );
                         static void NativeSetSource80MHz( signed int param0, bool param1, HRESULT &hr );
-                        static void NativeSetTransmitterIdleLevel( signed int param0, bool param1, bool param2, HRESULT &hr );
-                        static void NativeSetCarioerMode( signed int param0, bool param1, unsigned short param2, unsigned short param3, bool param4, HRESULT &hr );
-                        static void NativeSendData( signed int param0, CLR_RT_TypedArray_UINT8 param1, HRESULT &hr );
+                        static void NativeSetTransmitIdleEnabled( signed int param0, bool param1, HRESULT &hr );
+                        static void NativeSetTransmitIdleLevel( signed int param0, bool param1, HRESULT &hr );
                     };
                 }
             }

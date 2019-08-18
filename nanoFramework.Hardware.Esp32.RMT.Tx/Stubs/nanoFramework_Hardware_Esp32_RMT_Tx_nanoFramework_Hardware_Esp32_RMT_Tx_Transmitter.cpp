@@ -30,8 +30,10 @@ bool Transmitter::NativeGetLoopTxMode( signed int param0, HRESULT &hr )
     return retVal;
 }
 
-void Transmitter::NativeGetTransmitterIdleLevel( signed int param0, bool * param1, bool * param2, HRESULT &hr )
+bool Transmitter::NativeGetTransmitIdleLevel( signed int param0, HRESULT &hr )
 {
+    bool retVal = 0; 
+    return retVal;
 }
 
 signed int Transmitter::NativeInit( signed int param0, HRESULT &hr )
@@ -46,6 +48,20 @@ bool Transmitter::NativeIsSource80MHz( signed int param0, HRESULT &hr )
     return retVal;
 }
 
+bool Transmitter::NativeIsTransmitIdleEnabled( signed int param0, HRESULT &hr )
+{
+    bool retVal = 0; 
+    return retVal;
+}
+
+void Transmitter::NativeSendData( signed int param0, CLR_RT_TypedArray_UINT8 param1, HRESULT &hr )
+{
+}
+
+void Transmitter::NativeSetCarierMode( signed int param0, bool param1, unsigned short param2, unsigned short param3, bool param4, HRESULT &hr )
+{
+}
+
 void Transmitter::NativeSetClockDiv( signed int param0, unsigned char param1, HRESULT &hr )
 {
 }
@@ -58,15 +74,11 @@ void Transmitter::NativeSetSource80MHz( signed int param0, bool param1, HRESULT 
 {
 }
 
-void Transmitter::NativeSetTransmitterIdleLevel( signed int param0, bool param1, bool param2, HRESULT &hr )
+void Transmitter::NativeSetTransmitIdleEnabled( signed int param0, bool param1, HRESULT &hr )
 {
 }
 
-void Transmitter::NativeSetCarioerMode( signed int param0, bool param1, unsigned short param2, unsigned short param3, bool param4, HRESULT &hr )
-{
-}
-
-void Transmitter::NativeSendData( signed int param0, CLR_RT_TypedArray_UINT8 param1, HRESULT &hr )
+void Transmitter::NativeSetTransmitIdleLevel( signed int param0, bool param1, HRESULT &hr )
 {
 }
 
