@@ -41,21 +41,6 @@ HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32
     NANOCLR_NOCLEANUP();
 }
 
-HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::NativeGetLoopTxMode___STATIC__BOOLEAN__I4( CLR_RT_StackFrame& stack )
-{
-    NANOCLR_HEADER(); hr = S_OK;
-    {
-        signed int param0;
-        NANOCLR_CHECK_HRESULT( Interop_Marshal_INT32( stack, 0, param0 ) );
-
-        bool retVal = Transmitter::NativeGetLoopTxMode( param0, hr );
-        NANOCLR_CHECK_HRESULT( hr );
-        SetResult_bool( stack, retVal );
-
-    }
-    NANOCLR_NOCLEANUP();
-}
-
 HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::NativeGetTransmitIdleLevel___STATIC__BOOLEAN__I4( CLR_RT_StackFrame& stack )
 {
     NANOCLR_HEADER(); hr = S_OK;
@@ -168,22 +153,6 @@ HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32
         NANOCLR_CHECK_HRESULT( Interop_Marshal_UINT8( stack, 1, param1 ) );
 
         Transmitter::NativeSetClockDiv( param0, param1, hr );
-        NANOCLR_CHECK_HRESULT( hr );
-    }
-    NANOCLR_NOCLEANUP();
-}
-
-HRESULT Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::NativeSetLoopTxMode___STATIC__VOID__I4__BOOLEAN( CLR_RT_StackFrame& stack )
-{
-    NANOCLR_HEADER(); hr = S_OK;
-    {
-        signed int param0;
-        NANOCLR_CHECK_HRESULT( Interop_Marshal_INT32( stack, 0, param0 ) );
-
-        bool param1;
-        NANOCLR_CHECK_HRESULT( Interop_Marshal_bool( stack, 1, param1 ) );
-
-        Transmitter::NativeSetLoopTxMode( param0, param1, hr );
         NANOCLR_CHECK_HRESULT( hr );
     }
     NANOCLR_NOCLEANUP();

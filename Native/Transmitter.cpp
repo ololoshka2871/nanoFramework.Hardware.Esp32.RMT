@@ -9,10 +9,35 @@
 #define MY_CLEANUP_D(r)							hr = S_OK; nanoCLR_Cleanup: return r
 #define CHANNEL(ch)                             static_cast<rmt_channel_t>(ch)
 
+// see components/soc/esp32/include/soc/rmt_struct.h : RMT.int_st
+#define TX_END_MASK_START                       24
+#define TX_END_MASK_CH_STEP                     1
+#define TX_THR_MASK_START                       0
+#define TX_THR_MASK_CH_STEP                     3
+
+#define TX_THR_FLAG(ch)                         (1u << (TX_THR_MASK_START + (channel * TX_THR_MASK_CH_STEP)))
+#define TX_END_FLAG(ch)                         (1u << (TX_END_MASK_START + (channel * TX_THR_MASK_CH_STEP)))
+
 using namespace nanoFramework::Hardware::Esp32::RMT::Tx;
 
 std::map<rmt_channel_t, NativeContext> Transmitter::nativechannels;
 intr_handle_t Transmitter::isr_info;
+
+static bool isChannelHalfTransmitted(rmt_channel_t channel) {
+    return (::RMT.int_st.val & TX_THR_FLAG(channel)) != 0;
+}
+
+static bool isChannelFinishedTransmission(rmt_channel_t channel) {
+    return (::RMT.int_st.val & TX_END_FLAG(channel)) != 0;
+}
+
+static void resetHalfTransmittedChannel(rmt_channel_t channel) {
+    ::RMT.int_clr.val = TX_THR_FLAG(channel);
+}
+
+static void resetFinishedTransmissionChannel(rmt_channel_t channel) {
+    ::RMT.int_clr.val = TX_END_FLAG(channel);
+}
 
 void Transmitter::init_RMT() {
     if (nativechannels.size() > 0) return;
@@ -69,25 +94,6 @@ unsigned char Transmitter::NativeGetClockDiv(signed int channel, HRESULT &hr)
         }
 
         retVal = nc->second.GetClockDiv(); 
-    }
-    MY_CLEANUP_D(retVal);
-}
-
-bool Transmitter::NativeGetLoopTxMode(signed int channel, HRESULT &hr )
-{
-    bool retVal = 0; 
-    if (channel < 0) {
-        hr = CLR_E_INDEX_OUT_OF_RANGE;
-        NANOCLR_LEAVE();
-    }
-    {
-        auto nc = nativechannels.find(CHANNEL(channel));
-        if (nc == nativechannels.end()) {
-            hr = CLR_E_OBJECT_DISPOSED;
-            NANOCLR_LEAVE();
-        }
-
-        retVal = nc->second.GetLoopTxMode();
     }
     MY_CLEANUP_D(retVal);
 }
@@ -150,22 +156,6 @@ void Transmitter::NativeSetClockDiv(signed int channel, unsigned char clockdiv, 
             NANOCLR_LEAVE();
         }
         nc->second.SetClockDiv(clockdiv);
-    }
-    MY_CLEANUP();
-}
-
-void Transmitter::NativeSetLoopTxMode(signed int channel, bool loopMode, HRESULT &hr) {
-    if (channel < 0) {
-        hr = CLR_E_INDEX_OUT_OF_RANGE;
-        NANOCLR_LEAVE();
-    }
-    {
-        auto nc = nativechannels.find(CHANNEL(channel));
-        if (nc == nativechannels.end()) {
-            hr = CLR_E_OBJECT_DISPOSED;
-            NANOCLR_LEAVE();
-        }
-        nc->second.SetLoopMode(loopMode);
     }
     MY_CLEANUP();
 }
@@ -308,5 +298,18 @@ signed int Transmitter::find_next_channel() {
 
 void Transmitter::RMT_ISR(void *arg) {
     (void)arg;
+
+    std::for_each(nativechannels.begin(), nativechannels.end(), 
+        [](decltype(nativechannels)::iterator::value_type &pair) {
+            auto channel = pair.first;
+            auto &ctx = pair.second;
+            if (isChannelHalfTransmitted(channel)) {
+                ctx.halfTransmitted();
+                resetHalfTransmittedChannel(channel);
+            } else if (isChannelFinishedTransmission(channel)) {
+                ctx.TransmissionFinished();
+                resetFinishedTransmissionChannel(channel);
+            }
+    });
 }
 

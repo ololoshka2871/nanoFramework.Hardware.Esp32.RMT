@@ -24,12 +24,10 @@ namespace nanoFramework
                         // Declaration of stubs. These functions are implemented by Interop code developers
                         static void NativeDispose( signed int channel, HRESULT &hr );
                         static unsigned char NativeGetClockDiv(signed int channel, HRESULT &hr);
-                        static bool NativeGetLoopTxMode(signed int channel, HRESULT &hr);
                         static bool NativeGetTransmitIdleLevel(signed int channel, HRESULT &hr);
                         static signed int NativeInit( signed int gpio_number, HRESULT &hr );
                         static bool NativeIsSource80MHz( signed int channel, HRESULT &hr );
                         static void NativeSetClockDiv(signed int channel, unsigned char clockdiv, HRESULT &hr);
-                        static void NativeSetLoopTxMode(signed int channel, bool loopMode, HRESULT &hr);
                         static void NativeSetSource80MHz(signed int channel, bool is80MhzMode, HRESULT &hr);
                         static bool NativeIsTransmitIdleEnabled(signed int channel, HRESULT &hr);
                         static void NativeSendData(signed int channel, CLR_RT_TypedArray_UINT8 data, HRESULT &hr);

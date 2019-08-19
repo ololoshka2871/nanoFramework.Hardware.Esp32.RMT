@@ -120,16 +120,6 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		}
 
 		/// <summary>
-		/// Setup transmission loop mode
-		/// </summary>
-		/// <ref>https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/rmt.html#_CPPv420rmt_get_tx_loop_mode13rmt_channel_tPb</ref>
-		public bool LoopTxMode
-		{
-			get => NativeGetLoopTxMode(Channel);
-			set => NativeSetLoopTxMode(Channel, value);
-		}
-
-		/// <summary>
 		/// Transmitter idle level (if enabled)
 		/// </summary>
 		public bool TransmitIdleLevel
@@ -180,9 +170,6 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		private static extern byte NativeGetClockDiv(int channel);
 
 		[MethodImpl(MethodImplOptions.InternalCall)]
-		private static extern bool NativeGetLoopTxMode(int channel);
-
-		[MethodImpl(MethodImplOptions.InternalCall)]
 		private static extern bool NativeGetTransmitIdleLevel(int channel);
 
 		[MethodImpl(MethodImplOptions.InternalCall)]
@@ -202,9 +189,6 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 
 		[MethodImpl(MethodImplOptions.InternalCall)]
 		private static extern void NativeSetClockDiv(int channel, byte value);
-
-		[MethodImpl(MethodImplOptions.InternalCall)]
-		private static extern void NativeSetLoopTxMode(int channel, bool value);
 
 		[MethodImpl(MethodImplOptions.InternalCall)]
 		private static extern void NativeSetSource80MHz(int channel, bool value);

@@ -1,14 +1,11 @@
 #ifndef _NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_TRANSMITTER_NATIVE_CONTEXT_H_
 #define _NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_TRANSMITTER_NATIVE_CONTEXT_H_
 
-#define DEFAULT_DEVIDER                         4
-#define MAX_PULSES                              32
+#include <algorithm>
+#include <cstring>
 
-// see components/soc/esp32/include/soc/rmt_struct.h : RMT.int_st
-#define TX_END_MASK_START                       24
-#define TX_END_MASK_CH_STEP                     1
-#define TX_THR_MASK_START                       0
-#define TX_THR_MASK_CH_STEP                     3
+#define DEFAULT_DEVIDER                         4
+#define HALF_BUFFER_SIZE                        (sizeof(RMTMEM) / sizeof(rmt_item32_t))
 
 namespace nanoFramework
 {
@@ -24,8 +21,6 @@ namespace nanoFramework
                     {
                         NativeContext(rmt_channel_t channel) 
                         : channel(channel),
-                          tx_thr_event_mask(1u << (TX_THR_MASK_START + (channel * TX_THR_MASK_CH_STEP))),
-                          tx_end_event_mask(1u << (TX_END_MASK_START + (channel * TX_THR_MASK_CH_STEP))),
                           write_mutex(xSemaphoreCreateBinary()) {
                             // Это по факту регистры
                             auto &ch = ::RMT.conf_ch[channel];
@@ -42,7 +37,8 @@ namespace nanoFramework
                             ch.conf1.idle_out_en = 1;     // idle control Tx enabled
                             ch.conf1.idle_out_lv = 0;     // Idle TX lvl
 
-                            ::RMT.tx_lim_ch[channel].limit = MAX_PULSES; // generate interrupt then MAX_PULSES commands processed
+                            ::RMT.tx_lim_ch[channel].limit = 
+                                static_cast<uint8_t>(HALF_BUFFER_SIZE); // generate interrupt then MAX_PULSES commands processed
                         }
 
                         ~NativeContext() {
@@ -50,7 +46,6 @@ namespace nanoFramework
                         }
 
                         void SetClockDiv(uint8_t clockdiv) { ::RMT.conf_ch[channel].conf0.div_cnt = clockdiv; }
-                        void SetLoopMode(bool LoopMode) { ::RMT.conf_ch[channel].conf1.tx_conti_mode = LoopMode; }
                         void Set80MhzclkSource(bool is80MhzMode) { ::RMT.conf_ch[channel].conf1.ref_always_on = is80MhzMode;}
                         void SetTransmitIdleEnabled(bool enabled) { ::RMT.conf_ch[channel].conf1.idle_out_en = enabled; }
                         void SetTransmitIdleLevel(bool idle_lvl) { ::RMT.conf_ch[channel].conf1.idle_out_lv = idle_lvl; }
@@ -66,7 +61,6 @@ namespace nanoFramework
 
                         bool isRef80MHz() const { return ::RMT.conf_ch[channel].conf1.ref_always_on; }
                         uint8_t GetClockDiv() const { return ::RMT.conf_ch[channel].conf0.div_cnt; }
-                        bool  GetLoopTxMode() const { return ::RMT.conf_ch[channel].conf1.tx_conti_mode; }
                         bool GetTransmitIdleLevel() const { return ::RMT.conf_ch[channel].conf1.idle_out_lv; }
                         bool IsTransmitIdleEnabled() const { return ::RMT.conf_ch[channel].conf1.idle_out_en; }
 
@@ -80,27 +74,21 @@ namespace nanoFramework
                             start_transmission();
                         }
 
-                        // isr context
-                        void doInterrupt() {
-                            portBASE_TYPE taskAwoken = 0;
-                            const auto thisISRregSTA = ::RMT.int_st.val;
+                        inline void halfTransmitted() {
+                            fill_half_buffer();
+                        }
 
-                            if (thisISRregSTA & tx_thr_event_mask) {
-                                fill_half_buffer();
-                                ::RMT.int_clr.val = tx_thr_event_mask;
-                            }
-                            else if (thisISRregSTA & tx_end_event_mask) {
-                                xSemaphoreGiveFromISR(write_mutex, &taskAwoken);
-                                ::RMT.int_clr.val = tx_end_event_mask;
-                            }
+                        inline void TransmissionFinished() {
+                             portBASE_TYPE taskAwoken = 0;
+                             xSemaphoreGiveFromISR(write_mutex, &taskAwoken);
                         }
 
                     private:
                         const rmt_channel_t channel;
-                        const uint32_t tx_thr_event_mask;
-                        const uint32_t tx_end_event_mask;
                         std::vector<rmt_item32_t> data;
+                        rmt_item32_t* tr_it;
                         xSemaphoreHandle write_mutex;
+                        bool next_fill_high;
 
                         void start_transmission() {
                             ::RMT.conf_ch[channel].conf1.mem_rd_rst = 1;
@@ -108,11 +96,26 @@ namespace nanoFramework
                         }
 
                         void reset_transmission() {
-
+                            tr_it = data.data();
+                            next_fill_high = false;
                         }
 
                         void fill_half_buffer() {
-                            //
+                            const auto end = data.data() + data.size();
+                            if (tr_it == end)
+                                return;
+
+                            auto dest = tr_it;
+                            size_t this_iteration_copy = std::min(
+                                static_cast<size_t>(end - dest - 1), 
+                                static_cast<size_t>(HALF_BUFFER_SIZE));
+
+                            std::memcpy(const_cast<rmt_item32_t*>(
+                                    &RMTMEM.chan[channel].data32[next_fill_high ? HALF_BUFFER_SIZE : 0]), 
+                                tr_it, this_iteration_copy);
+
+                            next_fill_high = !next_fill_high;
+                            tr_it += this_iteration_copy;
                         }
                     };
                 }

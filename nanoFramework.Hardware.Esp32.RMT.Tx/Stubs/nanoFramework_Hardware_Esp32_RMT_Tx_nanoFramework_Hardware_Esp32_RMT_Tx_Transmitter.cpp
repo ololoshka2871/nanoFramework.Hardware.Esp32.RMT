@@ -24,12 +24,6 @@ unsigned char Transmitter::NativeGetClockDiv( signed int param0, HRESULT &hr )
     return retVal;
 }
 
-bool Transmitter::NativeGetLoopTxMode( signed int param0, HRESULT &hr )
-{
-    bool retVal = 0; 
-    return retVal;
-}
-
 bool Transmitter::NativeGetTransmitIdleLevel( signed int param0, HRESULT &hr )
 {
     bool retVal = 0; 
@@ -63,10 +57,6 @@ void Transmitter::NativeSetCarierMode( signed int param0, bool param1, unsigned 
 }
 
 void Transmitter::NativeSetClockDiv( signed int param0, unsigned char param1, HRESULT &hr )
-{
-}
-
-void Transmitter::NativeSetLoopTxMode( signed int param0, bool param1, HRESULT &hr )
 {
 }
 
