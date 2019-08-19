@@ -25,6 +25,8 @@ namespace nanoFramework
                     struct Transmitter
                     {
                         // Helper Functions to access fields of managed object
+                        static unsigned int& Get_rmt_command_size( CLR_RT_HeapBlock* pMngObj )    { return Interop_Marshal_GetField_UINT32( pMngObj, Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::FIELD__rmt_command_size ); }
+
                         static bool& Get_mCarierEnabled( CLR_RT_HeapBlock* pMngObj )    { return Interop_Marshal_GetField_bool( pMngObj, Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::FIELD__mCarierEnabled ); }
 
                         static unsigned short& Get_mCarierHighLevel( CLR_RT_HeapBlock* pMngObj )    { return Interop_Marshal_GetField_UINT16( pMngObj, Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::FIELD__mCarierHighLevel ); }

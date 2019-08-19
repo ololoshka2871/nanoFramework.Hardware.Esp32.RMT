@@ -37,6 +37,10 @@ static const CLR_RT_MethodHandler method_lookup[] =
     NULL,
     NULL,
     NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
     Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::NativeDispose___STATIC__VOID__I4,
     Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::NativeGetClockDiv___STATIC__U1__I4,
     Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::NativeGetTransmitIdleLevel___STATIC__BOOLEAN__I4,
@@ -54,7 +58,7 @@ static const CLR_RT_MethodHandler method_lookup[] =
 const CLR_RT_NativeAssemblyData g_CLR_AssemblyNative_nanoFramework_Hardware_Esp32_RMT_Tx =
 {
     "nanoFramework.Hardware.Esp32.RMT.Tx", 
-    0xCCBC8F62,
+    0xBFABD289,
     method_lookup,
     ////////////////////////////////////////////////////////////////////////////////////
     // check if the version bellow matches the one in AssemblyNativeVersion attribute //

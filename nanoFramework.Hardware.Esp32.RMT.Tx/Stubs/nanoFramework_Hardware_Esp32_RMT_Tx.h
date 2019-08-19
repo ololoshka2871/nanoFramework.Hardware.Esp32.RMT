@@ -14,6 +14,7 @@
 #include <nanoCLR_Runtime.h>
 struct Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter
 {
+    static const int FIELD__rmt_command_size = 65535;
     static const int FIELD__mCarierEnabled = 65535;
     static const int FIELD__mCarierHighLevel = 65535;
     static const int FIELD__mCarierHighLvl = 65535;

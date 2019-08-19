@@ -32,7 +32,8 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		}
 
 		public void SendData(byte[] data) => NativeSendData(Channel, data);
-
+		public void Send(IPulseCommandList commandlist) => SendData(commandlist.Serialise());
+			
 		protected virtual void Dispose(bool disposing)
 		{
 			NativeDispose(Channel);
@@ -40,7 +41,6 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 
 		private void ConfigureCarier() => NativeSetCarierMode(Channel, CarierEnabled, CarierHighLevel, CarierLowLevel, CarierHighLvl);
 
-		// TODO: STOP!
 
 		#endregion Methods
 
@@ -63,6 +63,11 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		#endregion Constructors
 
 		#region Fields
+
+		/// <summary>
+		/// Single RMT command size
+		/// </summary>
+		internal uint rmt_command_size = 4;
 
 		private readonly bool mCarierEnabled = false;
 		private readonly UInt16 mCarierHighLevel = 1;
