@@ -9,8 +9,8 @@
 //    re-run.
 //
 //-----------------------------------------------------------------------------
-#ifndef _NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_TRANSMITTER_H_
-#define _NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_TRANSMITTER_H_
+#ifndef _NANOFRAMEWORK_HARDWARE_ESP32_RMT_NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_TRANSMITTER_H_
+#define _NANOFRAMEWORK_HARDWARE_ESP32_RMT_NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_TRANSMITTER_H_
 
 namespace nanoFramework
 {
@@ -25,17 +25,17 @@ namespace nanoFramework
                     struct Transmitter
                     {
                         // Helper Functions to access fields of managed object
-                        static unsigned int& Get_rmt_command_size( CLR_RT_HeapBlock* pMngObj )    { return Interop_Marshal_GetField_UINT32( pMngObj, Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::FIELD__rmt_command_size ); }
+                        static unsigned int& Get_rmt_command_size( CLR_RT_HeapBlock* pMngObj )    { return Interop_Marshal_GetField_UINT32( pMngObj, Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::FIELD__rmt_command_size ); }
 
-                        static bool& Get_mCarierEnabled( CLR_RT_HeapBlock* pMngObj )    { return Interop_Marshal_GetField_bool( pMngObj, Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::FIELD__mCarierEnabled ); }
+                        static bool& Get_mCarierEnabled( CLR_RT_HeapBlock* pMngObj )    { return Interop_Marshal_GetField_bool( pMngObj, Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::FIELD__mCarierEnabled ); }
 
-                        static unsigned short& Get_mCarierHighLevel( CLR_RT_HeapBlock* pMngObj )    { return Interop_Marshal_GetField_UINT16( pMngObj, Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::FIELD__mCarierHighLevel ); }
+                        static unsigned short& Get_mCarierHighLevel( CLR_RT_HeapBlock* pMngObj )    { return Interop_Marshal_GetField_UINT16( pMngObj, Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::FIELD__mCarierHighLevel ); }
 
-                        static bool& Get_mCarierHighLvl( CLR_RT_HeapBlock* pMngObj )    { return Interop_Marshal_GetField_bool( pMngObj, Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::FIELD__mCarierHighLvl ); }
+                        static bool& Get_mCarierHighLvl( CLR_RT_HeapBlock* pMngObj )    { return Interop_Marshal_GetField_bool( pMngObj, Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::FIELD__mCarierHighLvl ); }
 
-                        static unsigned short& Get_mCarierLowLevel( CLR_RT_HeapBlock* pMngObj )    { return Interop_Marshal_GetField_UINT16( pMngObj, Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::FIELD__mCarierLowLevel ); }
+                        static unsigned short& Get_mCarierLowLevel( CLR_RT_HeapBlock* pMngObj )    { return Interop_Marshal_GetField_UINT16( pMngObj, Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::FIELD__mCarierLowLevel ); }
 
-                        static signed int& Get_mChannel( CLR_RT_HeapBlock* pMngObj )    { return Interop_Marshal_GetField_INT32( pMngObj, Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::FIELD__mChannel ); }
+                        static signed int& Get_mChannel( CLR_RT_HeapBlock* pMngObj )    { return Interop_Marshal_GetField_INT32( pMngObj, Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter::FIELD__mChannel ); }
 
                         // Declaration of stubs. These functions are implemented by Interop code developers
                         static void NativeDispose( signed int param0, HRESULT &hr );
@@ -56,4 +56,4 @@ namespace nanoFramework
         }
     }
 }
-#endif  //_NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_TRANSMITTER_H_
+#endif  //_NANOFRAMEWORK_HARDWARE_ESP32_RMT_NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_TRANSMITTER_H_

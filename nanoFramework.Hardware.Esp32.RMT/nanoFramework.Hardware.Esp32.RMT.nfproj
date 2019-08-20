@@ -12,15 +12,17 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <FileAlignment>512</FileAlignment>
-    <RootNamespace>nanoFramework.Hardware.Esp32.RMT.Tx</RootNamespace>
-    <AssemblyName>nanoFramework.Hardware.Esp32.RMT.Tx</AssemblyName>
+    <RootNamespace>nanoFramework.Hardware.Esp32.RMT</RootNamespace>
+    <AssemblyName>nanoFramework.Hardware.Esp32.RMT</AssemblyName>
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
+    <Name>nanoFramework.Hardware.Esp32.RMT</Name>
   </PropertyGroup>
   <PropertyGroup Label="nanoFramework">
     <NF_GenerateStubs>true</NF_GenerateStubs>
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
+    <Compile Include="PulseCommand.cs" />
     <Compile Include="PulseCommandList.cs" />
     <Compile Include="IPulseCommandList.cs" />
     <Compile Include="Transmitter.cs" />

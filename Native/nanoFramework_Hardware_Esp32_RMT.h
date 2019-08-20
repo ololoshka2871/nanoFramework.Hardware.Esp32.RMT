@@ -7,14 +7,13 @@
 //-----------------------------------------------------------------------------
 
 
-#ifndef _NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_H_
-#define _NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_H_
+#ifndef _NANOFRAMEWORK_HARDWARE_ESP32_RMT_H_
+#define _NANOFRAMEWORK_HARDWARE_ESP32_RMT_H_
 
 #include <nanoCLR_Interop.h>
 #include <nanoCLR_Runtime.h>
-struct Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter
+struct Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Transmitter
 {
-    static const int FIELD__rmt_command_size = 65535;
     static const int FIELD__mCarierEnabled = 65535;
     static const int FIELD__mCarierHighLevel = 65535;
     static const int FIELD__mCarierHighLvl = 65535;
@@ -40,6 +39,6 @@ struct Library_nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_
 
 
 
-extern const CLR_RT_NativeAssemblyData g_CLR_AssemblyNative_nanoFramework_Hardware_Esp32_RMT_Tx;
+extern const CLR_RT_NativeAssemblyData g_CLR_AssemblyNative_nanoFramework_Hardware_Esp32_RMT;
 
-#endif  //_NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_H_
+#endif  //_NANOFRAMEWORK_HARDWARE_ESP32_RMT_H_

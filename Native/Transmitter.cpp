@@ -1,4 +1,4 @@
-#include "nanoFramework_Hardware_Esp32_RMT_Tx.h"
+#include "nanoFramework_Hardware_Esp32_RMT.h"
 #include "Transmitter.h"
 
 #include <vector>

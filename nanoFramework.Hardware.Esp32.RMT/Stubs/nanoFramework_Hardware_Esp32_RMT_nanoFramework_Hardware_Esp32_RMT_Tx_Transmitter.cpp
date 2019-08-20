@@ -9,8 +9,8 @@
 //    re-run.
 //
 //-----------------------------------------------------------------------------
-#include "nanoFramework_Hardware_Esp32_RMT_Tx.h"
-#include "nanoFramework_Hardware_Esp32_RMT_Tx_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter.h"
+#include "nanoFramework_Hardware_Esp32_RMT.h"
+#include "nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_Transmitter.h"
 
 using namespace nanoFramework::Hardware::Esp32::RMT::Tx;
 

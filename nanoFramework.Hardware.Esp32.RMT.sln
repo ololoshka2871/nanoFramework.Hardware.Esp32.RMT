@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "nanoFramework.Hardware.Esp32.RMT.Tx", "nanoFramework.Hardware.Esp32.RMT.Tx\nanoFramework.Hardware.Esp32.RMT.Tx.nfproj", "{812A3CFF-47E0-4B02-8B0A-5F3796EB2ABC}"
+Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "nanoFramework.Hardware.Esp32.RMT", "nanoFramework.Hardware.Esp32.RMT\nanoFramework.Hardware.Esp32.RMT.nfproj", "{812A3CFF-47E0-4B02-8B0A-5F3796EB2ABC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
