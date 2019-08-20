@@ -22,10 +22,10 @@
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
-    <Compile Include="PulseCommand.cs" />
-    <Compile Include="PulseCommandList.cs" />
-    <Compile Include="IPulseCommandList.cs" />
-    <Compile Include="Transmitter.cs" />
+    <Compile Include="Tx\PulseCommand.cs" />
+    <Compile Include="Tx\PulseCommandList.cs" />
+    <Compile Include="Tx\IPulseCommandList.cs" />
+    <Compile Include="Tx\Transmitter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
