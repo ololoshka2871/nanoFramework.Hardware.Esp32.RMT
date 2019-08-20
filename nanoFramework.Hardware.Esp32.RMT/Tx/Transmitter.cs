@@ -58,6 +58,8 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		private Transmitter(int channel)
 		{
 			Channel = channel;
+
+			ConfigureCarier();
 		}
 
 		#endregion Constructors
@@ -67,7 +69,7 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		/// <summary>
 		/// Single RMT command size
 		/// </summary>
-		internal uint rmt_command_size = 4;
+		internal const uint rmt_command_size = 4;
 
 		private readonly bool mCarierEnabled = false;
 		private readonly UInt16 mCarierHighLevel = 1;

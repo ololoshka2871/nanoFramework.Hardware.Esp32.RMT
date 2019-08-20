@@ -10,7 +10,7 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		public bool level2 = false;
 
 		public const int SerialisedSize = 4;
-		private const UInt16 MAX_DURATION = 32768;
+		public const UInt16 MAX_DURATION = 32768;
 
 		private UInt16 mDuration1 = 0;
 		private UInt16 mDuration2 = 0;

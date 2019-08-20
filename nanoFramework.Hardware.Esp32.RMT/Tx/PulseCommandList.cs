@@ -6,7 +6,7 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 	{
 		#region Fields
 
-		protected ArrayList commands;
+		protected ArrayList commands = new ArrayList();
 
 		#endregion Fields
 
@@ -35,6 +35,10 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 					{
 						AddCommand(state, overflow);
 					}
+				}
+				if (...)
+				{
+
 				}
 				else
 				{

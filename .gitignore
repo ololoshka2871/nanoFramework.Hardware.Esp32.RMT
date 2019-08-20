@@ -261,4 +261,4 @@ __pycache__/
 *.pyc
 
 # generated stubs
-nanoFramework.Hardware.Esp32.DynamicIndication/Stubs
+nanoFramework.Hardware.Esp32.RMT/Stubs
