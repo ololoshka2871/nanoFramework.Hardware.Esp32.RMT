@@ -18,31 +18,19 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 			return this;
 		}
 
-		public virtual IPulseCommandList AddState(bool state, ushort Duration)
+		public virtual IPulseCommandList AddState(bool level, ushort duration)
 		{
 			var last_command = LastCommand();
 			if (last_command == null)
 			{
-				AddCommand(state, Duration);
+				AddCommand(level, duration);
 			}
 			else
 			{
-				if (last_command.EndsWithLevel(state))
+				var res = last_command.AddLevel(level, ref duration);
+				if (res != PulseCommand.ApplyResult.DONE)
 				{
-					// try append to last command
-					var overflow = last_command.AppendDuration(Duration);
-					if (overflow > 0)
-					{
-						AddCommand(state, overflow);
-					}
-				}
-				if (...)
-				{
-
-				}
-				else
-				{
-					AddCommand(state, Duration);
+					AddCommand(level, duration);
 				}
 			}
 			return this;

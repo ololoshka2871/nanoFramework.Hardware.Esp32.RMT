@@ -65,6 +65,7 @@ namespace nanoFramework
                         bool IsTransmitIdleEnabled() const { return ::RMT.conf_ch[channel].conf1.idle_out_en; }
 
                         void SendAsync(std::vector<rmt_item32_t>&& new_data) {
+                            /*
                             xSemaphoreTake(write_mutex, portMAX_DELAY); // release on transmission finished
 
                             data = std::move(new_data);
@@ -72,6 +73,7 @@ namespace nanoFramework
                             fill_half_buffer();
                             fill_half_buffer();
                             start_transmission();
+                            */
                         }
 
                         inline void halfTransmitted() {

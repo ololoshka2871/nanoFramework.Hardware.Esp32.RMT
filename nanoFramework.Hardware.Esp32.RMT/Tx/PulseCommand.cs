@@ -4,13 +4,15 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 {
 	public class PulseCommand
 	{
+		public enum ApplyResult { DONE, OVERFLOW, REJECTED };
+
 		#region Fields
 
 		public bool level1 = false;
 		public bool level2 = false;
 
 		public const int SerialisedSize = 4;
-		public const UInt16 MAX_DURATION = 32768;
+		public const UInt16 MAX_DURATION = 32767;
 
 		private UInt16 mDuration1 = 0;
 		private UInt16 mDuration2 = 0;
@@ -69,49 +71,56 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 
 		public static PulseCommand EndMarker() => new PulseCommand(0, true, 0, false);
 
-		public bool isPulsed() => level1 != level2;
 
-		protected UInt16 AppendDuration2(UInt16 duration)
+		private ApplyResult AddLevel1(bool level, ref UInt16 duration)
 		{
-			int newDuration = Duration2 + duration;
-			if (newDuration > MAX_DURATION)
+			if (level1 != level)
+				return ApplyResult.REJECTED;
+
+			mDuration1 += duration;
+			duration = 0;
+			if (mDuration1 > MAX_DURATION)
 			{
-				Duration2 = MAX_DURATION;
-				return (UInt16)(newDuration - MAX_DURATION);
+				duration = (UInt16)(mDuration1 - MAX_DURATION);
+				return ApplyResult.OVERFLOW;
 			}
-			else
-			{
-				Duration2 = (UInt16)newDuration;
-				return 0;
-			}
+			return ApplyResult.DONE;
 		}
 
-		public UInt16 AppendDuration(UInt16 duration)
+		private ApplyResult AddLevel2(bool level, ref UInt16 duration)
+		{
+			if (level2 != level)
+				return ApplyResult.REJECTED;
+
+			mDuration2 += duration;
+			duration = 0;
+			if (mDuration2 > MAX_DURATION)
+			{
+				duration = (UInt16)(mDuration2 - MAX_DURATION);
+				return ApplyResult.OVERFLOW;
+			}
+			return ApplyResult.DONE;
+		}
+
+		public ApplyResult AddLevel(bool level, ref UInt16 duration)
 		{
 			if (isPulsed())
 			{
-				return AppendDuration2((UInt16)duration);
-			}
-
-			int newDuration = Duration1 + Duration2 + duration;
-			if (newDuration > MAX_DURATION)
-			{
-				Duration1 = MAX_DURATION;
-				Duration2 = 0;
-				newDuration -= MAX_DURATION;
-				return AppendDuration2((UInt16)newDuration);
+				return AddLevel2(level, ref duration);
 			}
 			else
 			{
-				Duration1 = (UInt16)newDuration;
-				Duration2 = 0;
-				return 0;
+				if (Duration2 == 0) {
+					var r = AddLevel1(level, ref duration);
+					level2 = level;
+					return (r != ApplyResult.DONE) ? AddLevel2(level, ref duration) : r;
+				}
+				return AddLevel2(level, ref duration);
 			}
 		}
 
-		public bool EndsWithLevel(bool state) 
-			=> Duration2 > 0 ? level2 == state : level1 == state;
-
+		public bool isPulsed() => level1 != level2;
+		
 		public void SerialiseTo(byte[] buf, int offset)
 		{
 			// <duration1><level1><duration2><level2>
@@ -122,10 +131,21 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 				(uint)mDuration2 << 16 |
 				(level2 ? 1u : 0) << 31;
 			byte[] intBytes = BitConverter.GetBytes(v);
-			//if (BitConverter.IsLittleEndian)
-			//	Array.Reverse(intBytes);
+
+			Reverce(intBytes);
 
 			Array.Copy(intBytes, 0, buf, offset, intBytes.Length);
+		}
+
+		private static void Reverce(byte[] d)
+		{
+			var L = d.Length - 1;
+			for (int i = 0; i < d.Length / 2; ++i)
+			{
+				var v = d[i];
+				d[i] = d[L - i];
+				d[L - i] = v;
+			}
 		}
 
 		#endregion Methods
