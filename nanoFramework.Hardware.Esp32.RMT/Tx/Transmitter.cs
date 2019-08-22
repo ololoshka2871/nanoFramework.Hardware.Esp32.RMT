@@ -33,7 +33,7 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 
 		public void SendData(byte[] data) => NativeSendData(Channel, data);
 		public void Send(IPulseCommandList commandlist) => SendData(commandlist.Serialise());
-			
+
 		protected virtual void Dispose(bool disposing)
 		{
 			NativeDispose(Channel);
@@ -102,7 +102,13 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		public byte ClockDivider
 		{
 			get => NativeGetClockDiv(Channel);
-			set => NativeSetClockDiv(Channel, value);
+			set {
+				if (value == 0)
+				{
+					throw new ArgumentOutOfRangeException("1..255");
+				}
+				NativeSetClockDiv(Channel, value);
+			}
 		}
 
 		/// <summary>

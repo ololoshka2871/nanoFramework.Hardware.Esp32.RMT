@@ -38,7 +38,6 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 
 		public virtual byte[] Serialise()
 		{
-			AddCommand(PulseCommand.EndMarker());
 			var result = new byte[commands.Count * PulseCommand.SerialisedSize];
 			for (int i = 0, offset = 0; i < commands.Count; ++i, offset += PulseCommand.SerialisedSize)
 			{

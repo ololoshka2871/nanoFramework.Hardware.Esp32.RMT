@@ -2,10 +2,9 @@
 #define _NANOFRAMEWORK_HARDWARE_ESP32_RMT_NANOFRAMEWORK_HARDWARE_ESP32_RMT_TX_TRANSMITTER_H_
 
 #include <map>
+#include <vector>
 
 #include "rmt.h"
-
-#include "NativeContext.h"
 
 namespace nanoFramework
 {
@@ -19,7 +18,7 @@ namespace nanoFramework
                 {
                     struct Transmitter
                     {
-                        static std::map<rmt_channel_t, NativeContext> nativechannels;
+                        static std::map<rmt_channel_t, std::vector<rmt_item32_t>> registredChannels;
 
                         // Declaration of stubs. These functions are implemented by Interop code developers
                         static void NativeDispose( signed int channel, HRESULT &hr );
@@ -37,13 +36,9 @@ namespace nanoFramework
                         static void NativeSetTransmitIdleLevel(signed int channel, bool idle_lvl, HRESULT &hr);
 
                     private:
-                        static intr_handle_t isr_info;
-
                         static signed int find_next_channel();
 
-                        static void RMT_ISR(void *arg); 
-                        static void init_RMT();
-                        static void deinit_RMT();
+                        static esp_err_t init_channel(rmt_channel_t channel, gpio_num_t gpio);
                     };
                 }
             }

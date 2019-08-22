@@ -14,7 +14,7 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		public const int SerialisedSize = 4;
 		public const UInt16 MAX_DURATION = 32767;
 
-		private UInt16 mDuration1 = 0;
+		private UInt16 mDuration1 = 1;
 		private UInt16 mDuration2 = 0;
 
 		#endregion Fields
@@ -68,9 +68,6 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 				throw new ArgumentOutOfRangeException("Duration maxt be <= 32768");
 			}
 		}
-
-		public static PulseCommand EndMarker() => new PulseCommand(0, true, 0, false);
-
 
 		private ApplyResult AddLevel1(bool level, ref UInt16 duration)
 		{
@@ -131,21 +128,7 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 				(uint)mDuration2 << 16 |
 				(level2 ? 1u : 0) << 31;
 			byte[] intBytes = BitConverter.GetBytes(v);
-
-			Reverce(intBytes);
-
 			Array.Copy(intBytes, 0, buf, offset, intBytes.Length);
-		}
-
-		private static void Reverce(byte[] d)
-		{
-			var L = d.Length - 1;
-			for (int i = 0; i < d.Length / 2; ++i)
-			{
-				var v = d[i];
-				d[i] = d[L - i];
-				d[L - i] = v;
-			}
 		}
 
 		#endregion Methods
