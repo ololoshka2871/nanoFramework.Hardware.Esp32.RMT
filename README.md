@@ -27,9 +27,9 @@ rmt_transmitter.IsTransmitIdleEnabled = true;
 rmt_transmitter.TransmitIdleLevel = false;
 
 // create new pulse command for to transmitt
-// IDLE  0.5us  1us      1.5 us			  2 us				2.5 us			IDLE..
-//      |----|		  |------------|			    |--------------------|
-// -----|	 |--------|			   |----------------|					 |------
+// IDLE  0.5us  1us       1.5 us           2 us             2.5 us	   IDLE..
+//      |----|        |------------|                |--------------------|
+// -----|    |--------|            |----------------|                    |------
 var commandlist = new PulseCommandList();
 commandlist
 	.AddLevel(true, 10)
