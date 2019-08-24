@@ -2,16 +2,42 @@
 
 namespace nanoFramework.Hardware.Esp32.RMT.Tx
 {
+	/// <summary>
+	/// ESP32 RMT module command
+	/// 
+	/// see [esp32-idf]/components/soc/esp32/include/soc/rmt_struct.h : 234 for more info
+	/// </summary>
 	public class PulseCommand
 	{
-		public enum ApplyResult { DONE, OVERFLOW, REJECTED };
+		/// <summary>
+		/// Result of state merging
+		/// </summary>
+		public enum ApplyResult {
+			DONE, /// New State is fully merged into command
+			OVERFLOW, /// New state is partially merged, but state counter overflow occurred
+			REJECTED /// Can't merge new state into this command
+		};
 
 		#region Fields
 
+		/// <summary>
+		/// Command level 1
+		/// </summary>
 		public bool level1 = false;
+
+		/// <summary>
+		/// Command level 2
+		/// </summary>
 		public bool level2 = false;
 
+		/// <summary>
+		/// Equals with sizeof(rmt_item32_t)
+		/// </summary>
 		public const int SerialisedSize = 4;
+
+		/// <summary>
+		/// Max value of rmt_item32_t::durationX (15 bit unsigned value)
+		/// </summary>
 		public const UInt16 MAX_DURATION = 32767;
 
 		private UInt16 mDuration1 = 1;
@@ -21,6 +47,15 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 
 		#region Constructors
 
+		/// <summary>
+		/// Create new pulse command
+		/// 
+		/// Referenced to rmt_item32_t
+		/// </summary>
+		/// <param name="duration1">Level 1 duration in chanel ticks</param>
+		/// <param name="level1">logic outlut level 1</param>
+		/// <param name="duration2">Level 2 duration in chanel ticks</param>
+		/// <param name="level2">logic outlut level 1</param>
 		public PulseCommand(UInt16 duration1, bool level1, UInt16 duration2, bool level2)
 		{
 			Duration1 = duration1;
@@ -29,6 +64,10 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 			this.level2 = level2;
 		}
 
+		/// <summary>
+		/// Create empty pulse command
+		/// Outputs logick level 0 for 1 RMT channel tick
+		/// </summary>
 		public PulseCommand()
 		{
 		}
@@ -37,6 +76,9 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 
 		#region Properties
 
+		/// <summary>
+		/// Level1 duration in RMT chanel ticks
+		/// </summary>
 		public UInt16 Duration1
 		{
 			get => mDuration1;
@@ -47,6 +89,9 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 			}
 		}
 
+		/// <summary>
+		/// Level2 duration in RMT chanel ticks
+		/// </summary>
 		public UInt16 Duration2
 		{
 			get => mDuration2;
@@ -99,6 +144,12 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 			return ApplyResult.DONE;
 		}
 
+		/// <summary>
+		/// Try Add logick state to this command
+		/// </summary>
+		/// <param name="level">Output logick level</param>
+		/// <param name="duration">Output duration in RMT chanel ticks</param>
+		/// <returns>see enum ApplyResult</returns>
 		public ApplyResult AddLevel(bool level, ref UInt16 duration)
 		{
 			if (isPulsed())
@@ -116,8 +167,17 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 			}
 		}
 
+		/// <summary>
+		/// Get command pulses of flat level
+		/// </summary>
+		/// <returns>true, if level1 equals to leve2</returns>
 		public bool isPulsed() => level1 != level2;
-		
+
+		/// <summary>
+		/// Convert instance to byte array representation of rmt_item32_t and write to designed place
+		/// </summary>
+		/// <param name="buf">Destination array to write result</param>
+		/// <param name="offset">offset in destination array</param>
 		public void SerialiseTo(byte[] buf, int offset)
 		{
 			// <duration1><level1><duration2><level2>

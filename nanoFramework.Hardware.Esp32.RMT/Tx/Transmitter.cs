@@ -25,13 +25,26 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 			return new Transmitter(channel);
 		}
 
+		/// <summary>
+		/// Dispose transmitter object, also shut down native driver for used channel
+		/// </summary>
 		public void Dispose()
 		{
 			Dispose(true);
 			GC.SuppressFinalize(this);
 		}
 
+		/// <summary>
+		/// Send a RAW data to RMT module, returns indien, but waits while previes are fully transmitted
+		/// </summary>
+		/// <param name="data">Byte array, that contains list of serialized structs rmt_item32_t</param>
 		public void SendData(byte[] data) => NativeSendData(Channel, data);
+
+		/// <summary>
+		/// Send IPulseCommandList to RMT module
+		/// simply do SendData(commandlist.Serialise())
+		/// </summary>
+		/// <param name="commandlist">Command list for RMT module</param>
 		public void Send(IPulseCommandList commandlist) => SendData(commandlist.Serialise());
 
 		protected virtual void Dispose(bool disposing)
@@ -40,7 +53,6 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		}
 
 		private void ConfigureCarier() => NativeSetCarierMode(Channel, CarierEnabled, CarierHighLevel, CarierLowLevel, CarierHighLvl);
-
 
 		#endregion Methods
 
@@ -69,7 +81,7 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		/// <summary>
 		/// Single RMT command size
 		/// </summary>
-		internal const uint rmt_command_size = 4;
+		internal const uint rmt_command_size = PulseCommand.SerialisedSize;
 
 		private readonly bool mCarierEnabled = false;
 		private readonly UInt16 mCarierHighLevel = 1;
