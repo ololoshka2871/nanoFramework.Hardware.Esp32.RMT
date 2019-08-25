@@ -25,6 +25,7 @@ static const CLR_RT_MethodHandler method_lookup[] =
     NULL,
     NULL,
     NULL,
+    Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_PulseCommand::SerialiseTo___STATIC__VOID__SZARRAY_U1__I4__U2__U2__BOOLEAN__BOOLEAN,
     NULL,
     NULL,
     NULL,
@@ -77,10 +78,10 @@ static const CLR_RT_MethodHandler method_lookup[] =
 const CLR_RT_NativeAssemblyData g_CLR_AssemblyNative_nanoFramework_Hardware_Esp32_RMT =
 {
     "nanoFramework.Hardware.Esp32.RMT", 
-    0x34A0F401,
+    0xAB5B99CB,
     method_lookup,
     ////////////////////////////////////////////////////////////////////////////////////
     // check if the version bellow matches the one in AssemblyNativeVersion attribute //
     ////////////////////////////////////////////////////////////////////////////////////
-    { 1, 0, 0, 0 }
+    { 1, 1, 0, 0 }
 };

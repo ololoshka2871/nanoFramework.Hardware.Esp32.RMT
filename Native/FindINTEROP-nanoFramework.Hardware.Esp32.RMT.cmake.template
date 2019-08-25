@@ -27,6 +27,9 @@ set(nanoFramework.Hardware.Esp32.RMT_SRCS
     nanoFramework_Hardware_Esp32_RMT.cpp
     Transmitter_mshl.cpp
     Transmitter.cpp
+	
+	PulseCommand_mshl.cpp
+    PulseCommand.cpp
 
 )
 

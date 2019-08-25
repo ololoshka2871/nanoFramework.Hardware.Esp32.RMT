@@ -12,6 +12,20 @@
 
 #include <nanoCLR_Interop.h>
 #include <nanoCLR_Runtime.h>
+
+struct Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_PulseCommand
+{
+    static const int FIELD__level1 = 65535;
+    static const int FIELD__level2 = 65535;
+    static const int FIELD__mDuration1 = 65535;
+    static const int FIELD__mDuration2 = 65535;
+
+    NANOCLR_NATIVE_DECLARE(SerialiseTo___STATIC__VOID__SZARRAY_U1__I4__U2__U2__BOOLEAN__BOOLEAN);
+
+    //--//
+
+};
+
 struct Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Transmitter
 {
     static const int FIELD__mCarierEnabled = 65535;
