@@ -31,6 +31,9 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		/// </summary>
 		public bool level2 = false;
 
+		private UInt16 mDuration1 = 1;
+		private UInt16 mDuration2 = 0;
+
 		/// <summary>
 		/// Equals with sizeof(rmt_item32_t)
 		/// </summary>
@@ -40,9 +43,6 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		/// Max value of rmt_item32_t::durationX (15 bit unsigned value)
 		/// </summary>
 		public const UInt16 MAX_DURATION = 32767;
-
-		private UInt16 mDuration1 = 1;
-		private UInt16 mDuration2 = 0;
 
 		#endregion Fields
 

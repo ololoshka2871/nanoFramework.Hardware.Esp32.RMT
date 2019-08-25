@@ -47,10 +47,7 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		/// <param name="commandlist">Command list for RMT module</param>
 		public void Send(IPulseCommandList commandlist) => SendData(commandlist.Serialise());
 
-		protected virtual void Dispose(bool disposing)
-		{
-			NativeDispose(Channel);
-		}
+		protected virtual void Dispose(bool disposing) => NativeDispose(Channel);
 
 		private void ConfigureCarier() => NativeSetCarierMode(Channel, CarierEnabled, CarierHighLevel, CarierLowLevel, CarierHighLvl);
 
@@ -58,10 +55,7 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 
 		#region Destructors
 
-		~Transmitter()
-		{
-			Dispose(false);
-		}
+		~Transmitter() => Dispose(false);
 
 		#endregion Destructors
 

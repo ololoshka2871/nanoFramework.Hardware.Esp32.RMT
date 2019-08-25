@@ -1,19 +1,37 @@
-﻿using System.Collections;
+﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace nanoFramework.Hardware.Esp32.RMT.Tx
 {
 	public class PulseCommandList : IPulseCommandList
 	{
-		#region Fields
+		#region Constructors
 
-		/// <summary>
-		/// List of pulse commands
-		/// </summary>
-		protected ArrayList commands = new ArrayList();
+		public PulseCommandList() => NativeInit();
 
-		#endregion Fields
+		#endregion Constructors
+
+		#region Destructors
+
+		~PulseCommandList() => Dispose(false);
+
+		#endregion Destructors
+
+		#region Properties
+
+		private int CommandCount => NativeGetCommandCount();
+
+		#endregion Properties
 
 		#region Methods
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		protected virtual void Dispose(bool disposing) => NativeFree();
 
 		/// <summary>
 		/// Add full command to command list
@@ -22,7 +40,7 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		/// <returns>self (to chaining calls)</returns>
 		public virtual IPulseCommandList AddCommand(PulseCommand cmd)
 		{
-			commands.Add(cmd);
+			NativeCommandAdd(cmd);
 			return this;
 		}
 
@@ -58,11 +76,8 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		/// <returns>bytearray, represents command list for native code</returns>
 		public virtual byte[] Serialise()
 		{
-			var result = new byte[commands.Count * PulseCommand.SerialisedSize];
-			for (int i = 0, offset = 0; i < commands.Count; ++i, offset += PulseCommand.SerialisedSize)
-			{
-				((PulseCommand)commands[i]).SerialiseTo(result, offset);
-			}
+			var result = new byte[CommandCount * PulseCommand.SerialisedSize];
+			NativeSerialiseTo(result);
 			return result;
 		}
 
@@ -80,13 +95,27 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		/// <returns>Lat command of chain ir nill if chain is empty</returns>
 		protected PulseCommand LastCommand()
 		{
-			if (commands.Count == 0)
-			{
-				return null;
-			}
-
-			return (PulseCommand)commands[commands.Count - 1];
+			var r = NativeLastCommand();
+			return (PulseCommand)r;
 		}
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private extern void NativeCommandAdd(object cmd);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private extern void NativeFree();
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private extern int NativeGetCommandCount();
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private extern void NativeInit();
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private extern object NativeLastCommand();
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private extern void NativeSerialiseTo(byte[] result);
 
 		#endregion Methods
 	}

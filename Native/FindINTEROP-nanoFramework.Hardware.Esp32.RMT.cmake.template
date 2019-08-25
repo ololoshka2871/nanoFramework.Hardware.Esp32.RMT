@@ -30,6 +30,9 @@ set(nanoFramework.Hardware.Esp32.RMT_SRCS
 	
 	PulseCommand_mshl.cpp
     PulseCommand.cpp
+	
+	PulseCommandList_mshl.cpp
+	PulseCommandList.cpp
 
 )
 
