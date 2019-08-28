@@ -23,7 +23,11 @@ static const CLR_RT_MethodHandler method_lookup[] =
     NULL,
     NULL,
     NULL,
+    NULL,
     Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_PulseCommand::SerialiseTo___STATIC__VOID__SZARRAY_U1__I4__U2__U2__BOOLEAN__BOOLEAN,
+    NULL,
+    NULL,
+    NULL,
     NULL,
     NULL,
     NULL,
@@ -43,6 +47,8 @@ static const CLR_RT_MethodHandler method_lookup[] =
     Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_PulseCommandList::NativeInit___VOID,
     Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_PulseCommandList::NativeLastCommand___OBJECT,
     Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_PulseCommandList::NativeSerialiseTo___VOID__SZARRAY_U1,
+    Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_PulseCommandList::NativeGetElement___OBJECT__I4,
+    Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_PulseCommandList::NativeSetCommand___VOID__I4__OBJECT,
     NULL,
     NULL,
     NULL,
@@ -86,7 +92,7 @@ static const CLR_RT_MethodHandler method_lookup[] =
 const CLR_RT_NativeAssemblyData g_CLR_AssemblyNative_nanoFramework_Hardware_Esp32_RMT =
 {
     "nanoFramework.Hardware.Esp32.RMT", 
-    0x84C2D14D,
+    0xDAD55AAA,
     method_lookup,
     ////////////////////////////////////////////////////////////////////////////////////
     // check if the version bellow matches the one in AssemblyNativeVersion attribute //

@@ -25,6 +25,8 @@ struct Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT
     NANOCLR_NATIVE_DECLARE(NativeInit___VOID);
     NANOCLR_NATIVE_DECLARE(NativeLastCommand___OBJECT);
     NANOCLR_NATIVE_DECLARE(NativeSerialiseTo___VOID__SZARRAY_U1);
+    NANOCLR_NATIVE_DECLARE(NativeGetElement___OBJECT__I4);
+    NANOCLR_NATIVE_DECLARE(NativeSetCommand___VOID__I4__OBJECT);
 
     //--//
 

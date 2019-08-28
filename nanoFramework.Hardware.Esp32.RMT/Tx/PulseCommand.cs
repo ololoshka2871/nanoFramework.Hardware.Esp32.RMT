@@ -130,6 +130,18 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 			return ApplyResult.DONE;
 		}
 
+		/// <summary>
+		/// Copy date from reference command
+		/// </summary>
+		/// <param name="reference">Reference command</param>
+		public void Assign(PulseCommand reference)
+		{
+			level1 = reference.level1;
+			level2 = reference.level2;
+			Duration1 = reference.Duration1;
+			Duration2 = reference.Duration2;
+		}
+
 		private ApplyResult AddLevel2(bool level, ref UInt16 duration)
 		{
 			if (level2 != level)

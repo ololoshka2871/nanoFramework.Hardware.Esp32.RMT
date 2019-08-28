@@ -97,3 +97,41 @@ HRESULT Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RM
     }
     NANOCLR_NOCLEANUP();
 }
+
+HRESULT Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_PulseCommandList::NativeGetElement___OBJECT__I4( CLR_RT_StackFrame& stack )
+{
+    NANOCLR_HEADER(); hr = S_OK;
+    {
+        CLR_RT_HeapBlock* pMngObj = Interop_Marshal_RetrieveManagedObject( stack );
+
+        FAULT_ON_NULL(pMngObj);
+
+        signed int param0;
+        NANOCLR_CHECK_HRESULT( Interop_Marshal_INT32( stack, 1, param0 ) );
+
+        CLR_RT_HeapBlock* retVal = PulseCommandList::NativeGetElement( pMngObj,  param0, hr );
+        NANOCLR_CHECK_HRESULT( hr );
+        stack.SetResult_Object( retVal ); 
+    }
+    NANOCLR_NOCLEANUP();
+}
+
+HRESULT Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_PulseCommandList::NativeSetCommand___VOID__I4__OBJECT( CLR_RT_StackFrame& stack )
+{
+    NANOCLR_HEADER(); hr = S_OK;
+    {
+        CLR_RT_HeapBlock* pMngObj = Interop_Marshal_RetrieveManagedObject( stack );
+
+        FAULT_ON_NULL(pMngObj);
+
+        signed int param0;
+        NANOCLR_CHECK_HRESULT( Interop_Marshal_INT32( stack, 1, param0 ) );
+
+        UNSUPPORTED_TYPE param1;
+        NANOCLR_CHECK_HRESULT( Interop_Marshal_UNSUPPORTED_TYPE( stack, 2, param1 ) );
+
+        PulseCommandList::NativeSetCommand( pMngObj,  param0, param1, hr );
+        NANOCLR_CHECK_HRESULT( hr );
+    }
+    NANOCLR_NOCLEANUP();
+}

@@ -9,6 +9,19 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 
 		public PulseCommandList() => NativeInit();
 
+		/// <summary>
+		/// Create new Command list with size empty commands
+		/// </summary>
+		/// <param name="size">Predefined size (extandable)</param>
+		public PulseCommandList(int size)
+		{
+			NativeInit();
+			while (size-- > 0)
+			{
+				AddCommand(new PulseCommand());
+			}
+		}
+
 		#endregion Constructors
 
 		#region Destructors
@@ -32,6 +45,17 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		}
 
 		protected virtual void Dispose(bool disposing) => NativeFree();
+
+		public PulseCommand this[int i]
+		{
+			get
+			{
+				var res = NativeGetElement(i);
+				return (PulseCommand)res;
+			}
+
+			set => ((PulseCommand)NativeGetElement(i)).Assign(value);
+		}
 
 		/// <summary>
 		/// Add full command to command list
@@ -116,6 +140,12 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 
 		[MethodImpl(MethodImplOptions.InternalCall)]
 		private extern void NativeSerialiseTo(byte[] result);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private extern object NativeGetElement(int index);
+
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		private extern void NativeSetCommand(int index, object value);
 
 		#endregion Methods
 	}

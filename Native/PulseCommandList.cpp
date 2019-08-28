@@ -119,3 +119,37 @@ void PulseCommandList::NativeSerialiseTo( CLR_RT_HeapBlock* pMngObj, CLR_RT_Type
     }
 }
 
+CLR_RT_HeapBlock* PulseCommandList::NativeGetElement( CLR_RT_HeapBlock* pMngObj, signed int index, HRESULT &hr )
+{
+    auto it = commandListsByMngObj.find(pMngObj);
+    if (it == commandListsByMngObj.end()) {
+        hr = CLR_E_OBJECT_DISPOSED;
+        return nullptr;
+    } 
+    if ((size_t)index >= it->second.size()) {
+        hr = CLR_E_INDEX_OUT_OF_RANGE;
+        return nullptr;
+    } 
+    auto lit = it->second.begin();
+    std::advance(lit, index);
+    return *lit;
+}
+
+void PulseCommandList::NativeSetCommand( CLR_RT_HeapBlock* pMngObj, signed int index, CLR_RT_HeapBlock* value, HRESULT &hr )
+{
+    auto it = commandListsByMngObj.find(pMngObj);
+    if (it == commandListsByMngObj.end()) {
+        hr = CLR_E_OBJECT_DISPOSED;
+        return;
+    } 
+    if ((size_t)index >= it->second.size()) {
+        hr = CLR_E_INDEX_OUT_OF_RANGE;
+        return;
+    } 
+    auto lit = it->second.begin();
+    std::advance(lit, index);
+
+    (*lit)->UnmarkForcedAlive();
+    block_gc(value);
+    *lit = value;
+}

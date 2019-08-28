@@ -25,6 +25,8 @@ namespace nanoFramework
                         static void NativeInit( CLR_RT_HeapBlock* pMngObj, HRESULT &hr );
                         static CLR_RT_HeapBlock* NativeLastCommand( CLR_RT_HeapBlock* pMngObj, HRESULT &hr );
                         static void NativeSerialiseTo( CLR_RT_HeapBlock* pMngObj, CLR_RT_TypedArray_UINT8 dest, HRESULT &hr );
+                        static CLR_RT_HeapBlock* NativeGetElement( CLR_RT_HeapBlock* pMngObj, signed int index, HRESULT &hr );
+                        static void NativeSetCommand( CLR_RT_HeapBlock* pMngObj, signed int index, CLR_RT_HeapBlock* value, HRESULT &hr );
                     };
                 }
             }
