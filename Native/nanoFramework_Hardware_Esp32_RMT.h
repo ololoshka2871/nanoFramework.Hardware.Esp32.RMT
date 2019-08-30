@@ -19,14 +19,9 @@ struct Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT
 
 struct Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_PulseCommandList
 {
-    NANOCLR_NATIVE_DECLARE(NativeCommandAdd___VOID__OBJECT);
-    NANOCLR_NATIVE_DECLARE(NativeFree___VOID);
-    NANOCLR_NATIVE_DECLARE(NativeGetCommandCount___I4);
-    NANOCLR_NATIVE_DECLARE(NativeInit___VOID);
-    NANOCLR_NATIVE_DECLARE(NativeLastCommand___OBJECT);
+    static const int FIELD__Commands = 1;
+
     NANOCLR_NATIVE_DECLARE(NativeSerialiseTo___VOID__SZARRAY_U1);
-    NANOCLR_NATIVE_DECLARE(NativeGetElement___OBJECT__I4);
-    NANOCLR_NATIVE_DECLARE(NativeSetCommand___VOID__I4__OBJECT);
 
     //--//
 

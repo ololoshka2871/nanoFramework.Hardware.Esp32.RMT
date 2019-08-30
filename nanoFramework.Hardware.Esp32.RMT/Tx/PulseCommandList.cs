@@ -1,13 +1,15 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
+using System.Collections;
 
 namespace nanoFramework.Hardware.Esp32.RMT.Tx
 {
 	public class PulseCommandList : IPulseCommandList
 	{
+		private ArrayList Commands = new ArrayList();
+
 		#region Constructors
 
-		public PulseCommandList() => NativeInit();
+		public PulseCommandList() { }
 
 		/// <summary>
 		/// Create new Command list with size empty commands
@@ -15,46 +17,34 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		/// <param name="size">Predefined size (extandable)</param>
 		public PulseCommandList(int size)
 		{
-			NativeInit();
-			while (size-- > 0)
+			Commands.Capacity = size;
+			for (int i = 0; i < size; ++i)
 			{
-				AddCommand(new PulseCommand());
+				Commands.Add(new PulseCommand());
 			}
 		}
 
 		#endregion Constructors
 
-		#region Destructors
-
-		~PulseCommandList() => Dispose(false);
-
-		#endregion Destructors
-
 		#region Properties
 
-		private int CommandCount => NativeGetCommandCount();
+		private int CommandCount => Commands.Count;
 
 		#endregion Properties
 
 		#region Methods
 
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
-
-		protected virtual void Dispose(bool disposing) => NativeFree();
-
 		public PulseCommand this[int i]
 		{
 			get
 			{
-				var res = NativeGetElement(i);
+				var res = Commands[i];
 				return (PulseCommand)res;
 			}
 
-			set => ((PulseCommand)NativeGetElement(i)).Assign(value);
+			// up to -2.3ms fuster than
+			// set => ((PulseCommand)Commands[i]).Assign(value)
+			set => Commands[i] = value;
 		}
 
 		/// <summary>
@@ -64,7 +54,7 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		/// <returns>self (to chaining calls)</returns>
 		public virtual IPulseCommandList AddCommand(PulseCommand cmd)
 		{
-			NativeCommandAdd(cmd);
+			Commands.Add(cmd);
 			return this;
 		}
 
@@ -119,33 +109,12 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		/// <returns>Lat command of chain ir nill if chain is empty</returns>
 		protected PulseCommand LastCommand()
 		{
-			var r = NativeLastCommand();
+			var r = Commands[Commands.Count - 1];
 			return (PulseCommand)r;
 		}
 
 		[MethodImpl(MethodImplOptions.InternalCall)]
-		private extern void NativeCommandAdd(object cmd);
-
-		[MethodImpl(MethodImplOptions.InternalCall)]
-		private extern void NativeFree();
-
-		[MethodImpl(MethodImplOptions.InternalCall)]
-		private extern int NativeGetCommandCount();
-
-		[MethodImpl(MethodImplOptions.InternalCall)]
-		private extern void NativeInit();
-
-		[MethodImpl(MethodImplOptions.InternalCall)]
-		private extern object NativeLastCommand();
-
-		[MethodImpl(MethodImplOptions.InternalCall)]
 		private extern void NativeSerialiseTo(byte[] result);
-
-		[MethodImpl(MethodImplOptions.InternalCall)]
-		private extern object NativeGetElement(int index);
-
-		[MethodImpl(MethodImplOptions.InternalCall)]
-		private extern void NativeSetCommand(int index, object value);
 
 		#endregion Methods
 	}

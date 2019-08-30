@@ -7,7 +7,7 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 	/// 
 	/// see [esp32-idf]/examples/peripherals/rmt_tx/main/rmt_tx_main.c for more info
 	/// </summary>
-	public interface IPulseCommandList : IDisposable
+	public interface IPulseCommandList
 	{
 		/// <summary>
 		/// Add state to pulse chain

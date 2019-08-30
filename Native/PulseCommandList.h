@@ -16,17 +16,12 @@ namespace nanoFramework
                 {
                     struct PulseCommandList
                     {
-                        static std::map<CLR_RT_HeapBlock*, std::list<CLR_RT_HeapBlock*>> commandListsByMngObj;
+                        // Helper Functions to access fields of managed object
+                        static CLR_RT_HeapBlock_ArrayList* Get_Commands( CLR_RT_HeapBlock* pMngObj )    { 
+                            return (CLR_RT_HeapBlock_ArrayList*)pMngObj[ Library_nanoFramework_Hardware_Esp32_RMT_nanoFramework_Hardware_Esp32_RMT_Tx_PulseCommandList::FIELD__Commands ].Dereference(); }
 
                         // Declaration of stubs. These functions are implemented by Interop code developers
-                        static void NativeCommandAdd( CLR_RT_HeapBlock* pMngObj, CLR_RT_HeapBlock* command, HRESULT &hr );
-                        static void NativeFree( CLR_RT_HeapBlock* pMngObj, HRESULT &hr );
-                        static signed int NativeGetCommandCount( CLR_RT_HeapBlock* pMngObj, HRESULT &hr );
-                        static void NativeInit( CLR_RT_HeapBlock* pMngObj, HRESULT &hr );
-                        static CLR_RT_HeapBlock* NativeLastCommand( CLR_RT_HeapBlock* pMngObj, HRESULT &hr );
                         static void NativeSerialiseTo( CLR_RT_HeapBlock* pMngObj, CLR_RT_TypedArray_UINT8 dest, HRESULT &hr );
-                        static CLR_RT_HeapBlock* NativeGetElement( CLR_RT_HeapBlock* pMngObj, signed int index, HRESULT &hr );
-                        static void NativeSetCommand( CLR_RT_HeapBlock* pMngObj, signed int index, CLR_RT_HeapBlock* value, HRESULT &hr );
                     };
                 }
             }

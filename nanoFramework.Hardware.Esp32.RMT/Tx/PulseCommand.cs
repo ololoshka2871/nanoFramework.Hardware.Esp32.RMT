@@ -138,8 +138,8 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		{
 			level1 = reference.level1;
 			level2 = reference.level2;
-			Duration1 = reference.Duration1;
-			Duration2 = reference.Duration2;
+			mDuration1 = reference.mDuration1;
+			mDuration2 = reference.mDuration2;
 		}
 
 		private ApplyResult AddLevel2(bool level, ref UInt16 duration)
@@ -195,22 +195,6 @@ namespace nanoFramework.Hardware.Esp32.RMT.Tx
 		{
 			// <duration1><level1><duration2><level2>
 			// 0---------15------16---------30------31
-
-			/*
-			UInt32 v = mDuration1 |
-				(level1 ? 1u : 0) << 15 |
-				(uint)mDuration2 << 16 |
-				(level2 ? 1u : 0) << 31;
-			byte[] intBytes = BitConverter.GetBytes(v);
-			Array.Copy(intBytes, 0, buf, offset, intBytes.Length);
-			*/
-
-			/*
-			buf[offset + 0] = (byte)mDuration1;
-			buf[offset + 1] = (byte)(((uint)mDuration1 << 8) | ((level1 ? 1u : 0) << 7));
-			buf[offset + 2] = (byte)mDuration2;
-			buf[offset + 3] = (byte)(((uint)mDuration2 << 8) | ((level2 ? 1u : 0) << 7));
-			*/
 			SerialiseTo(buf, offset, mDuration1, mDuration2, level1, level2);
 		}
 
