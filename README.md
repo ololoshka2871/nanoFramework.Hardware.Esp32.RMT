@@ -1,4 +1,4 @@
-# ESP32-IDF RMT module API wraper for nanoFramework
+# ESP32-IDF RMT module API wrapper for nanoFramework
 
 ## Support
 * __ONLY Tx supported yet__
